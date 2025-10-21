@@ -1,11 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   imports: [],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  template: `
+  <div>
+    <h1>Welcome to the Angular NGRX Fundamentals Course!</h1>
+  </div>
+  `,
+  styles: [``]
 })
 export class App {
-  protected readonly title = signal('pluralsight-angular-deep-dive-ngrx-fundamentals');
 }
