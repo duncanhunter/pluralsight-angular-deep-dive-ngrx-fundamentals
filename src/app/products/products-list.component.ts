@@ -2,6 +2,7 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from './products.service';
 import { Product, ProductStatus } from './product.model';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-products-list',
@@ -32,6 +33,7 @@ import { Product, ProductStatus } from './product.model';
 })
 export class ProductsListComponent implements OnInit {
   private productsService = inject(ProductsService);
+  private store = inject(Store);
   products = signal<Product[]>([]);
   status = signal<ProductStatus>({ type: 'loading' });
 
@@ -46,5 +48,6 @@ export class ProductsListComponent implements OnInit {
         this.status.set({ type: 'error', message: error.message });
       }
     });
+    this.store.select(state => state).subscribe(state => console.log('App State:', state));
   }
 }
