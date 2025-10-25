@@ -5,6 +5,6 @@ export interface Product {
 }
 
 export type ProductStatus = {
-  type: 'loading' | 'success' | 'error';
+  type: 'idle' | 'loading' | 'loaded' | 'error';
   message?: string;
 };
