@@ -19,7 +19,7 @@ import { Store } from '@ngrx/store';
         <div>Error: {{ status().message }}</div>
       }
 
-      @if (status().type === 'success') {
+      @if (status().type === 'loaded') {
         <div>
           @for (product of products(); track product.id) {
             <strong>{{ product.name }}</strong> - {{ product.price | currency }}
@@ -35,14 +35,14 @@ export class ProductsListComponent implements OnInit {
   private productsService = inject(ProductsService);
   private store = inject(Store);
   products = signal<Product[]>([]);
-  status = signal<ProductStatus>({ type: 'loading' });
+  status = signal<ProductStatus>({ type: 'idle' });
 
   ngOnInit(): void {
     this.status.set({ type: 'loading' });
     this.productsService.getProducts().subscribe({
       next: (products) => {
         this.products.set(products);
-        this.status.set({ type: 'success' });
+        this.status.set({ type: 'loaded' });
       },
       error: (error) => {
         this.status.set({ type: 'error', message: error.message });
