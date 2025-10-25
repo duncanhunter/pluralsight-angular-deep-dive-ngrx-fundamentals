@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { productsPageOpened } from './state/products.actions';
 import { selectProducts, selectProductsCount, selectProductsStatus } from './state/products.selectors';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ProductStatus } from './product.model';
 
 @Component({
   selector: 'app-products-list',
@@ -35,10 +33,9 @@ import { ProductStatus } from './product.model';
 })
 export class ProductsListComponent implements OnInit {
   private store = inject(Store);
-
-  products = toSignal(this.store.select(selectProducts), { initialValue: [] });
-  productsCount = toSignal(this.store.select(selectProductsCount), { initialValue: 0 });
-  status = toSignal(this.store.select(selectProductsStatus), { initialValue: { type: 'idle' } as ProductStatus });
+  products = this.store.selectSignal(selectProducts);
+  productsCount = this.store.selectSignal(selectProductsCount);
+  status = this.store.selectSignal(selectProductsStatus);
 
   ngOnInit(): void {
     this.store.dispatch(productsPageOpened());
