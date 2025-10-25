@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
+import { ProductsListComponent } from './products/products-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [ProductsListComponent],
   template: `
-  <div>
-    <h1>Welcome to the Angular NGRX Fundamentals Course!</h1>
-  </div>
+    <app-products-list />
   `,
-  styles: [``]
 })
 export class App {
 }
