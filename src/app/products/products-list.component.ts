@@ -1,9 +1,11 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from './products.service';
-import { Product, ProductStatus } from './product.model';
 import { Store } from '@ngrx/store';
 import { productsPageOpened } from './state/products.actions';
+import { selectProducts, selectProductsCount, selectProductsStatus } from './state/products.selectors';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ProductStatus } from './product.model';
 
 @Component({
   selector: 'app-products-list',
@@ -26,30 +28,20 @@ import { productsPageOpened } from './state/products.actions';
             <strong>{{ product.name }}</strong> - {{ product.price | currency }}
             <hr>
           }
-          <p>Total: {{ products().length }} products</p>
+          <p>Total: {{ productsCount() }} products</p>
         </div>
       }
     </div>
   `,
 })
 export class ProductsListComponent implements OnInit {
-  private productsService = inject(ProductsService);
   private store = inject(Store);
-  products = signal<Product[]>([]);
-  status = signal<ProductStatus>({ type: 'idle' });
+
+  products = toSignal(this.store.select(selectProducts), { initialValue: [] });
+  productsCount = toSignal(this.store.select(selectProductsCount), { initialValue: 0 });
+  status = toSignal(this.store.select(selectProductsStatus), { initialValue: { type: 'idle' } as ProductStatus });
 
   ngOnInit(): void {
     this.store.dispatch(productsPageOpened());
-    this.status.set({ type: 'loading' });
-    this.productsService.getProducts().subscribe({
-      next: (products) => {
-        this.products.set(products);
-        this.status.set({ type: 'loaded' });
-      },
-      error: (error) => {
-        this.status.set({ type: 'error', message: error.message });
-      }
-    });
-    this.store.select(state => state).subscribe(state => console.log('App State:', state));
   }
 }
