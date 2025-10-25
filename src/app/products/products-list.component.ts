@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from './products.service';
 import { Store } from '@ngrx/store';
 import { productsPageOpened } from './state/products.actions';
 import { selectProducts, selectProductsCount, selectProductsStatus } from './state/products.selectors';
