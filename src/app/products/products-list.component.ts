@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from './products.service';
 import { Product, ProductStatus } from './product.model';
@@ -24,7 +24,7 @@ import { Product, ProductStatus } from './product.model';
             <strong>{{ product.name }}</strong> - {{ product.price | currency }}
             <hr>
           }
-          <p>Total: {{ products().length }} products</p>
+          <p>Total: {{ productsCount() }} products</p>
         </div>
       }
     </div>
@@ -33,6 +33,7 @@ import { Product, ProductStatus } from './product.model';
 export class ProductsListComponent implements OnInit {
   private productsService = inject(ProductsService);
   products = signal<Product[]>([]);
+  productsCount = computed(() => this.products().length);
   status = signal<ProductStatus>({ type: 'idle' });
 
   ngOnInit(): void {
