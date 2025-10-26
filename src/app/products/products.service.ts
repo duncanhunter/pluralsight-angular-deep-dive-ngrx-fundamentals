@@ -13,7 +13,7 @@ export class ProductsService {
     { id: 3, name: 'Mouse', price: 49.99 }
   ];
 
-  getProducts(): Observable<Product[]> {
+  getProducts() {
     if (Math.random() < 0.3) {
       return throwError(() => new Error('Failed to load products')).pipe(delay(500));
     }
