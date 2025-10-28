@@ -41,16 +41,6 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(productsPageOpened());
-    this.status.set({ type: 'loading' });
-    this.productsService.getProducts().subscribe({
-      next: (products) => {
-        this.products.set(products);
-        this.status.set({ type: 'loaded' });
-      },
-      error: (error) => {
-        this.status.set({ type: 'error', message: error.message });
-      }
-    });
     this.store.select(state => state).subscribe(state => console.log('App State:', state));
   }
 }
