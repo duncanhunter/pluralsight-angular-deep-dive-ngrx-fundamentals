@@ -1,6 +1,5 @@
 import { Component, OnInit, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from './products.service';
 import { Product, ProductStatus } from './product.model';
 import { Store } from '@ngrx/store';
 import { productsPageOpened } from './state/products.actions';
@@ -33,7 +32,6 @@ import { productsPageOpened } from './state/products.actions';
   `,
 })
 export class ProductsListComponent implements OnInit {
-  private productsService = inject(ProductsService);
   private store = inject(Store);
   products = signal<Product[]>([]);
   productsCount = computed(() => this.products().length);
