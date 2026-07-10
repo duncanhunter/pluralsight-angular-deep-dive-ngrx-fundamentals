@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pluralsight-angular-deep-dive-ngrx-fundamentals": {
+    "ngrx-state-management-in-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -75,10 +75,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "pluralsight-angular-deep-dive-ngrx-fundamentals:build:production"
+              "buildTarget": "ngrx-state-management-in-angular:build:production"
             },
             "development": {
-              "buildTarget": "pluralsight-angular-deep-dive-ngrx-fundamentals:build:development"
+              "buildTarget": "ngrx-state-management-in-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
